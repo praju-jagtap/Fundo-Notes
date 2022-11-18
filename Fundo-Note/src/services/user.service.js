@@ -10,3 +10,18 @@ export const newUserRegister = async (body) => {
     return data;
   }
 };
+
+//user-login
+export const User_login = async (body) => {
+  const data = await User.find({ email: body.email });
+  if (data.length !== 0) {
+    const data = await User.find({ password: body.password });
+    if (data.length !== 0) {
+      return data;
+    } else {
+      throw new Error('Password is Invalid ');
+    }
+  } else {
+    throw new Error('EmailId is Invalid');
+  }
+};
