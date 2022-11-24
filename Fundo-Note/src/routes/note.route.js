@@ -9,4 +9,7 @@ const router = express.Router();
 //route to create a new note
 router.post('', newNoteValidator, userAuth, noteController.createNote);
 
+//route to get all notes
+router.get('', userAuth ,noteController.getAllNotes);
+
 export default router;
