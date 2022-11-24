@@ -32,3 +32,9 @@ export const updateNoteByID = async (_id,body) => {
     );
     return data;
 };
+
+//delete note by _id
+export const deleteNoteByID = async (_id,userID) => {
+    const data = await Notes.findOneAndDelete(_id,userID);
+    return data;
+};

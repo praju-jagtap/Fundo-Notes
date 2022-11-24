@@ -18,4 +18,7 @@ router.get('/:_id', userAuth, noteController.getNoteByID);
 //route to update perticular or single note
 router.put('/:_id', userAuth, noteController.updateNoteByID);
 
+//route to delete perticular or single note
+router.delete('/:_id', userAuth, noteController.deleteNoteByID);
+
 export default router;
