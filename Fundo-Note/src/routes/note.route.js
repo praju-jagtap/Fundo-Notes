@@ -15,4 +15,7 @@ router.get('', userAuth ,noteController.getAllNotes);
 //route to get perticular or single note
 router.get('/:_id', userAuth, noteController.getNoteByID);
 
+//route to update perticular or single note
+router.put('/:_id', userAuth, noteController.updateNoteByID);
+
 export default router;

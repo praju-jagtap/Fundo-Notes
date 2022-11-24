@@ -18,3 +18,17 @@ export const getNoteByID = async (_id,userID) => {
     const data = await Notes.findById(_id,userID);
     return data;
 };
+
+//update note by _id
+export const updateNoteByID = async (_id,body) => {
+    const data = await Notes.findOneAndUpdate(
+      {
+        _id
+      },
+      body,
+      {
+        new: true
+      }
+    );
+    return data;
+};
