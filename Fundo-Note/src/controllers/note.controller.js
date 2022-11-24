@@ -38,4 +38,23 @@ export const createNote = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
+};
+
+/**
+ * Controller to getNote for particular user
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const getNoteByID = async (req, res, next) => {
+    try {
+      const data = await NoteService.getNoteByID(req.params._id);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'Note fetched successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
   };

@@ -12,4 +12,7 @@ router.post('', newNoteValidator, userAuth, noteController.createNote);
 //route to get all notes
 router.get('', userAuth ,noteController.getAllNotes);
 
+//route to get perticular or single note
+router.get('/:_id', userAuth, noteController.getNoteByID);
+
 export default router;
