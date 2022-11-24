@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 //create new user Refactore-registration for hash password
 export const newUserRegister = async (body) => {
@@ -21,9 +22,11 @@ export const User_login = async (body) => {
   const data = await User.findOne({ email: body.email });
   if (data !== null) {
     console.log('Password',body.password);
-    const result = await bcrypt.compare(body.password,data.password)
+    const result = await bcrypt.compare(body.password,data.password);
     if (result){
-      return data;
+      // eslint-disable-next-line max-len
+      var token = jwt.sign({'id':data.id,'firstname': data.firstname,'email': data.email }, process.env.SECRET_KEY);
+      return token;
     }else {
       throw new Error('Invalid Password');
     }
