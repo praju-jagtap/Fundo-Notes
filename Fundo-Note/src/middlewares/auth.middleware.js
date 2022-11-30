@@ -37,7 +37,7 @@ export const userPasswordAuth = async (req, res, next) => {
     if (!bearerToken)
       throw {
         code: HttpStatus.BAD_REQUEST,
-        message: 'Authorization token is required'
+        message: 'Authorization Token Is Required'
       };
     bearerToken = bearerToken.split(' ')[1];
 
