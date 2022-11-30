@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
+/* eslint-disable prettier/prettier */
 import HttpStatus from 'http-status-codes';
 import * as NoteService from '../services/note.service';
 
@@ -29,7 +31,7 @@ export const createNote = async (req, res, next) => {
  */
 export const getAllNotes = async (req, res, next) => {
     try {
-        const data = await NoteService.getAllNotes();
+        const data = await NoteService.getAllNotes(req.body);
         res.status(HttpStatus.OK).json({
             code: HttpStatus.OK,
             data: data,
@@ -67,9 +69,9 @@ export const getNoteByID = async (req, res, next) => {
 */
 export const updateNoteByID = async (req, res, next) => {
     try {
-        const data = await NoteService.updateNoteByID(req.params._id, req.body);
-        res.status(HttpStatus.ACCEPTED).json({
-            code: HttpStatus.ACCEPTED,
+        const data = await NoteService.updateNoteByID(req.params._id, req.body.userID,req.body);
+        res.status(HttpStatus.CREATED).json({
+            code: HttpStatus.CREATED,
             data: data,
             message: 'Note updated successfully'
         });

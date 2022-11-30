@@ -19,18 +19,23 @@ export const getNoteByID = async (_id, userID) => {
     return data;
 };
 
-//update note by _id
-export const updateNoteByID = async (_id, body) => {
+//update note by id
+export const updateNoteByID = async (_id, userID, body) => {
     const data = await Notes.findOneAndUpdate(
         {
-            _id
+            _id,
+            userID
         },
         body,
         {
             new: true
         }
     );
-    return data;
+    if (data !== null) {
+        return data;
+    } else {
+        throw new Error('Incorrect note ID');
+    }
 };
 
 //delete note by _id

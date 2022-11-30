@@ -5,10 +5,10 @@ const NoteSchema = new Schema(
         Title: {type: String},
         Descreption: {type: String},
         Color: {type: String},
+        userID: {type: String},
         IsArchive: {type: Boolean},
-        IsTrash: {type: Boolean},
-        userID: {type: String}
-      },
+        IsTrash: {type: Boolean}
+        },
       {
           timestamps: true
       }
