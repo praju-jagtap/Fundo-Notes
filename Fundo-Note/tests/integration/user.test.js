@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
@@ -180,4 +181,244 @@ describe('User APIs Test', () => {
         });
     });
   });
+
+
+var ID;
+
+// 9 - Test case for notes creation
+describe('Notes-Create', () => {
+  // eslint-disable-next-line max-len
+  it('9. While creating notes due to correct note details status should return 200', (done) => {
+    const noteBody = {
+      Title: ".Net Basic",
+      Descreption: "Concept"
+    }
+    request(app)
+      .post('/api/v1/notes/')
+      .set('authorization', `Bearer ${token}`)
+      .send(noteBody)
+      .end((err, res) => {
+        ID = res.body.data._id;
+        expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+  });
 });
+// 10 - Test case for notes creation without authorization
+describe('Notes-Create', () => {
+  // eslint-disable-next-line max-len
+  it('10. While creating notes without authorization should return status code 500', (done) => {
+    const noteBody = {
+      Title: ".Net Basic",
+      Description: "Concept"
+    }
+    request(app)
+      .post('/api/v1/notes/')
+      .send(noteBody)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(500);
+        done();
+      });
+  });
+});
+
+// 11 - Test case for invalid note description
+describe(' Notes-Create', () => {
+  // eslint-disable-next-line max-len
+  it('11. While creating notes due to invalid note description status should return 500', (done) => {
+    const noteBody = {
+      Title: ".Net Basic",
+      Description: ""
+    }
+    request(app)
+      .post('/api/v1/notes/')
+      .set('authorization', `Bearer ${token}`)
+      .send(noteBody)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(500);
+        done();
+      });
+  });
+});
+
+// 12 - Test case for invalid note title
+describe('Notes-Create', () => {
+  // eslint-disable-next-line max-len
+  it('12. While creating notes due to invalid note title status should return 500', (done) => {
+    const noteBody = {
+      Title: "",
+      Description: "Concept"
+    }
+    request(app)
+      .post('/api/v1/notes/')
+      .set('authorization', `Bearer ${token}`)
+      .send(noteBody)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(500);
+        done();
+      });
+  });
+});
+
+// 13 - Test case for get all notes with authorization
+describe(' Getting all notes with authorization', () => {
+  // eslint-disable-next-line max-len
+  it('13. While getting all notes successfully should return status code 200', (done) => {
+    request(app)
+      .get('/api/v1/notes/')
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+  });
+});
+
+// 14 - Test case for get all notes without authorization
+describe(' Getting all notes without authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('14. While getting all notes failed due invalid authorization should return status code 400', (done) => {
+    request(app)
+      .get('/api/v1/notes/')
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(400);
+        done();
+      });
+  });
+});
+
+// 15 - Test case for get note by ID with authorization
+describe(' Getting note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('15. While getting note by ID successfully should return status code 201', (done) => {
+    request(app)
+      .get(`/api/v1/notes/${ID}`)
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(201);
+        done();
+      });
+  });
+});
+// 16 - Test case for get note by ID without authorization
+describe(' Getting note by id without authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('16. While getting note by ID without authorization failed should return status code 400', (done) => {
+    request(app)
+      .get(`/api/v1/notes/${ID}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(400);
+        done();
+      });
+  });
+});
+
+// 17 - Test case for update note by ID with authorization
+describe(' Update note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('17. While updating note by ID successfully complete should return status code 201', (done) => {
+    const noteBody = {
+      Title: "Javascript Basics",
+      Description: "concept"
+    }
+    request(app)
+      .put(`/api/v1/notes/${ID}`)
+      .set('authorization', `Bearer ${token}`)
+      .send(noteBody)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(201);
+        done();
+      });
+  });
+});
+
+// 18 - Test case for update note by ID without authorization
+describe(' Update note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('18. While updating note by ID without authorization failed should return status code 400', (done) => {
+    const noteBody = {
+      Title: "Javascript Basics",
+      Description: "concept"
+    }
+    request(app)
+      .put(`/api/v1/notes/${ID}`)
+      .send(noteBody)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(400);
+        done();
+      });
+  });
+});
+
+// 19 - Test case for archive note by ID with authorization
+describe(' Archive note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('19. While archive note by ID successfully complete should return status code 202', (done) => {
+    request(app)
+      .put(`/api/v1/notes/${ID}/isArchive`)
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(202);
+        done();
+      });
+  });
+});
+
+//20 - Test case for trash note by ID with authorization
+describe(' Trash note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('20. While trash note by ID successfully complete should return status code 202', (done) => {
+    request(app)
+      .put(`/api/v1/notes/${ID}/isTrash`)
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(202);
+        done();
+      });
+  });
+});
+
+
+// 21 - Test case for delete note by ID with authorization
+describe(' Update note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('21. While deleting note by ID successfully complete should return status code 200', (done) => {
+    request(app)
+      .delete(`/api/v1/notes/${ID}`)
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+  });
+});
+
+// 22 - Test case for delete note by ID without authorization
+describe(' Update note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('22. While deleting note by ID without authorization failed should return status code 400', (done) => {
+    request(app)
+      .delete(`/api/v1/notes/${ID}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(400);
+        done();
+      });
+  });
+});
+
+
+// 23 - Test case for delete note by invalid ID with authorization
+describe(' Update note by id with authorization ', () => {
+  // eslint-disable-next-line max-len
+  it('23. While deleting note by invalid ID failed should return status code 200', (done) => {
+    request(app)
+      .delete(`/api/v1/notes/637dc973fabe2c026cf065e`)
+      .set('authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+  });
+});
+});
+
