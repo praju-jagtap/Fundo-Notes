@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /*
 import { expect } from 'chai';
 import * as UserService from '../../src/services/user.service';
