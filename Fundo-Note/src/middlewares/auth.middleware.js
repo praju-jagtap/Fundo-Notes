@@ -42,7 +42,7 @@ export const userPasswordAuth = async (req, res, next) => {
     bearerToken = bearerToken.split(' ')[1];
 
     const user = await jwt.verify(bearerToken, process.env.SECRET_KEY);
-    req.body.Email = user.Email;
+    req.body.email = user.email;
     next();
   } catch (error) {
     next(error);
